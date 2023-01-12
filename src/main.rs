@@ -1,5 +1,6 @@
-use agenda::Agenda;
 use std::io::{stdin};
+
+use crate::agenda::Agenda;
 mod agenda;
 
 fn main() {
@@ -49,7 +50,7 @@ fn main() {
         .find_by_title(&title)
         .expect("Not found any title match");
 
-    println!("- Item found by seach: {}", found.title);
+    println!("- Item found by seach: {} and state: {} ", found.title, &found.get_state());
  }
 
  fn menu() -> u8{

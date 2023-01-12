@@ -1,7 +1,6 @@
-pub(crate) enum AgendaState { 
+pub enum AgendaState { 
     OK,
     TODO,
     DELETED,
+    PENDING
 }
-
-

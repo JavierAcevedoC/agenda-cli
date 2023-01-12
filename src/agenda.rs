@@ -1,7 +1,10 @@
-use self::components::task::AgendaPage;
+use components::task::AgendaPage;
 
 mod components {
     pub mod task;
+}
+mod enums {
+    pub mod status;
 }
 
 
