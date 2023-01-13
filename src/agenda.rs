@@ -1,3 +1,4 @@
+use std::io::stdin;
 use components::task::AgendaPage;
 
 mod components {
@@ -28,6 +29,27 @@ impl Agenda {
             }
         }
         return None;
+    } 
+
+    pub fn edit_page(&mut self) {
+        println!("- Marking page with new state:"); 
+        let page = &mut self.tasks.get_mut(0).unwrap();
+        let current_state = page.get_state();
+        let new_state = AgendaPage::to_new_state(&current_state);
+
+        if current_state.to_lowercase().contains("delete"){
+            println!(" - Want delete page? (y/n)");
+            let mut delete_page: String = String::new();
+            stdin()
+                .read_line(&mut delete_page)
+                .expect("err at response");
+            if delete_page.contains("y") {
+                let _ = &mut self.tasks.remove(0);
+                println!(" - Deleted page");
+            }
+        } else {
+            page.set_state(new_state);
+        }
     }
 
 

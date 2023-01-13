@@ -22,4 +22,18 @@ impl AgendaPage {
             AgendaState::TODO  => String::from("TODO"),
         }
     }
+
+    pub fn set_state(&mut self, state: AgendaState){
+        self.state = state;
+    }
+
+    pub fn to_new_state(state: &str) -> AgendaState {
+      match state {
+            "OK" => AgendaState::DELETED,
+            "PENDING" => AgendaState::OK,
+            "DELETED" => AgendaState::DELETED,
+            "TODO" => AgendaState::PENDING,
+            _ => AgendaState::TODO
+        }
+    }
 }

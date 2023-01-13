@@ -15,7 +15,7 @@ fn main() {
         match opt_selected {
             1 => add(&mut current_agenda),
             2 => list(&current_agenda),
-            3 => search(&current_agenda),
+            3 => search(&mut current_agenda),
             4 => print!("great bye!"),
             _ => println!("Select an option please.")
         }
@@ -35,11 +35,11 @@ fn main() {
 
  fn list(agenda: &Agenda) {
     for page in agenda.list_all() {
-        println!(" * {}", page.title);
+        println!(" * {} : {}", page.title, page.get_state());
     }
  }
 
- fn search(agenda: &Agenda){
+ fn search(agenda: &mut Agenda){
     let mut title = String::new();
     println!("- Write the title u want search -");
     stdin()
@@ -50,7 +50,21 @@ fn main() {
         .find_by_title(&title)
         .expect("Not found any title match");
 
-    println!("- Item found by seach: {} and state: {} ", found.title, &found.get_state());
+    println!("- Item found by seach: {} and state: {} ", found.title, found.get_state());
+    edit_page(agenda);
+ }
+
+ fn edit_page(agenda: &mut Agenda) {
+    println!("- Want update page status? (y/n)");
+    let mut is_change: String = String::new();
+    stdin()
+        .read_line(&mut is_change)
+        .expect("Error at input");
+    if is_change.contains("y") {
+        agenda.edit_page();
+    } else {
+        println!("- Page not changed");
+    }
  }
 
  fn menu() -> u8{
